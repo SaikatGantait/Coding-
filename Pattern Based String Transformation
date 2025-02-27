@@ -1,0 +1,45 @@
+import java.util.Scanner;
+public class Main {
+    //Complete the code
+    private static char replace(char c) {
+        switch(c) {
+            case 'a': return 'e';
+            case 'e': return 'i';
+            case 'i': return 'o';
+            case 'o': return 'u';
+            case 'u': return 'a';
+            default: return c; 
+        }
+    }
+    private static String transformation(String[] strings, String pattern) {
+        StringBuilder result = new StringBuilder();
+        int n = strings.length;
+
+        for(int i = 0; i < pattern.length(); i++) {
+            int pos = pattern.charAt(i) - '0' - 1;
+            String currentString = strings[i % n];
+            char extractedChar = currentString.charAt(pos % currentString.length());
+            result.append(extractedChar);
+        }
+        for(int i =0; i< result.length(); i++) {
+            char c = result.charAt(i);
+            result.setCharAt(i, replace(c));
+        }
+
+        if(result.length() % 2 == 0) {
+            result.reverse();
+        }
+        return result.toString();
+    } 
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[]  strings = sc.nextLine().split(",\\s*");
+        String pattern = sc.nextLine();
+
+        String result = transformation(strings, pattern);
+        System.out.println(result);
+
+        sc.close();
+    }
+}
